@@ -74,7 +74,7 @@ export default function WaitlistPage() {
   return (
     <div className="overflow-y-auto">
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center gap-3 p-4 text-center">
+      <section className="h-[450px]  flex flex-col items-center justify-center gap-3 p-4 text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
           Get Interview-Ready with AI.
         </h1>
