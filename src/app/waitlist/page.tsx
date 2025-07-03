@@ -1,4 +1,5 @@
 "use client";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormEvent, useEffect, useState } from "react";
@@ -46,6 +47,11 @@ export default function WaitlistPage() {
 
   return (
     <div>
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] bg-primary opacity-20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-[-120px] right-[-100px] w-[500px] h-[500px] bg-accent rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-secondary opacity-60 rounded-full blur-2xl animate-bounce translate-x-[-50%] translate-y-[-50%]"></div>
+      </div>
       <main>
         <section className="min-h-screen flex flex-col items-center justify-center gap-3 p-2">
           <h1 className="text-center text-4xl md:text-5xl lg:text-6xl font-bold">
@@ -78,7 +84,10 @@ export default function WaitlistPage() {
             </>
           ) : (
             <>
-              <h2 className="text-lg">Already on Waitlist</h2>
+              <Badge variant={"secondary"} className="text-lg">
+                Already on Waitlist
+              </Badge>
+
               <p className="text-center p-2">
                 You&apos;ll be the first to try it before we launch 🚀
               </p>
