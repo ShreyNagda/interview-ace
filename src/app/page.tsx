@@ -1,6 +1,11 @@
-import { redirect } from "next/navigation";
+import Header from "@/components/Header";
+import { auth } from "@/lib/auth";
 
-export default function Home() {
-  // Remove when landing page ready
-  redirect("/waitlist");
+export default async function Home() {
+  const session = await auth();
+  return (
+    <>
+      <Header session={session} />
+    </>
+  );
 }
