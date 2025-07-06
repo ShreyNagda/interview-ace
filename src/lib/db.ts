@@ -25,13 +25,13 @@ export default async function dbConnect(): Promise<void> {
 
 export async function getUserById(id: string) {
   await dbConnect();
-  const user: IUser = await User.findById(id).populate({
-    path: "history",
-    model: "Answer",
-    populate: {
-      path: "question",
-      model: "Question",
-    },
-  });
+  const user: IUser | null = await User.findById(id);
   return JSON.parse(JSON.stringify(user));
+}
+
+export async function updateUserById(
+  id: string,
+  data: { jobTitle: string[]; jobLevel: string; resumeContext: string }
+) {
+  console.log(id, data);
 }

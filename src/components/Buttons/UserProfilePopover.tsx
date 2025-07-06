@@ -13,14 +13,17 @@ import LogoutButton from "@/components/Buttons/LogoutButton";
 import { Session } from "next-auth";
 
 type UserPopoverProps = {
-  session: Session;
+  session?: Session | null;
+  user?: IUser;
 };
 
-export default function UserProfilePopover({ session }: UserPopoverProps) {
-  const user = session.user;
-
-  const fallbackInitials = user?.name
-    ? user.name
+export default function UserProfilePopover({
+  session,
+  user,
+}: UserPopoverProps) {
+  const currentUser = user || session?.user;
+  const fallbackInitials = currentUser?.name
+    ? currentUser.name
         .split(" ")
         .map((n) => n[0])
         .join("")
@@ -32,8 +35,8 @@ export default function UserProfilePopover({ session }: UserPopoverProps) {
       <PopoverTrigger>
         <Avatar>
           <AvatarImage
-            src={user?.image ?? undefined}
-            alt={user?.name ?? "User"}
+            src={currentUser?.image ?? undefined}
+            alt={currentUser?.name ?? "User"}
           />
           <AvatarFallback className="bg-primary text-primary-foreground">
             {fallbackInitials}

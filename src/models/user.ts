@@ -71,8 +71,7 @@ const UserSchema = new Schema<IUser>(
       default: 0,
     },
     questionQueue: {
-      type: [Types.ObjectId],
-      ref: "Question",
+      type: [String],
       default: [],
     },
     history: [

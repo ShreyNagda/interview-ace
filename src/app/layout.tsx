@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: "Ace any interview using AI based interviewer.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
