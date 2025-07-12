@@ -7,18 +7,19 @@ import UserProfilePopover from "./Buttons/UserProfilePopover";
 import { ArrowRight, LogIn } from "lucide-react";
 import ThemeToggle from "./Theme/ThemeToggle";
 import { usePathname } from "next/navigation";
+import UserGreeting from "./UserGreeting";
 
 export default function Header({
   session,
-  user,
+  image,
 }: {
   session?: Session | null;
-  user?: IUser;
+  image?: string;
 }) {
   const pathname = usePathname();
 
   if (
-    pathname.endsWith("/dashboard") ||
+    // pathname.endsWith("/dashboard") ||
     pathname.includes("login") ||
     pathname.includes("signup") ||
     pathname.includes("error")
@@ -26,12 +27,18 @@ export default function Header({
     return <></>;
   }
   return (
-    <header className="max-w-[1000px] mx-auto p-4 md:p-8 flex items-center justify-between">
-      <div className="text-2xl md:text-3xl font-bold">InterviewAce</div>
-      <nav className="flex gap-4 items-center">
+    <header className="w-full max-w-[1000px] mx-auto p-4 md:p-8 flex items-center justify-between">
+      <div className="text-2xl md:text-3xl font-bold">
+        {pathname.endsWith("/dashboard") ? (
+          <UserGreeting name={session?.user?.name || ""} />
+        ) : (
+          "InterviewAce"
+        )}
+      </div>
+      <nav className="flex gap-1 md:gap-4 items-center">
         <ThemeToggle />
 
-        {!session && !user && (
+        {!session && (
           <>
             <Button
               className="hover:scale-105 border hidden md:flex"
@@ -49,9 +56,9 @@ export default function Header({
           </>
         )}
 
-        {(session || user) && (
+        {session && (
           <>
-            <UserProfilePopover session={session} user={user} />
+            <UserProfilePopover session={session} image={image} />
           </>
         )}
       </nav>

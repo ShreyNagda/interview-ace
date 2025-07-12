@@ -35,3 +35,9 @@ export async function updateUserById(
 ) {
   console.log(id, data);
 }
+
+export async function getUserImageById(id: string | undefined) {
+  if (!id) return null;
+  const user = await User.findById(id);
+  return user.image;
+}

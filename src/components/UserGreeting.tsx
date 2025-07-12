@@ -2,11 +2,11 @@
 export default function UserGreeting({ name }: { name: string }) {
   return (
     <div className="">
-      <h1 className="text-3xl md:text-3xl font-bold">
+      <h1 className="text-lg md:text-2xl font-bold flex flex-wrap gap-x-1">
         Welcome back,
-        <br className="md:hidden" /> {name} 👋
+        <div> {name} 👋</div>
       </h1>
-      <p className="text-sm text-muted-foreground">
+      <p className="hidden md:block text-sm text-muted-foreground">
         Ready for your next mock interview?
       </p>
     </div>

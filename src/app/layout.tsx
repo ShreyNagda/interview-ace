@@ -4,6 +4,9 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@/components/Theme/ThemeProvider";
+import Header from "@/components/Header";
+import { auth } from "@/lib/auth";
+import { getUserImageById } from "@/lib/db";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +28,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  const image = await getUserImageById(session?.user?.id);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -32,7 +38,10 @@ export default async function RootLayout({
       >
         <Toaster position="top-right" closeButton duration={2000} />
         <SessionProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <Header session={session} image={image} />
+            {children}
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>

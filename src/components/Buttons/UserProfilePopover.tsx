@@ -8,18 +8,20 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { UserCircle2 } from "lucide-react";
+import { LayoutDashboard, UserCircle2 } from "lucide-react";
 import LogoutButton from "@/components/Buttons/LogoutButton";
 import { Session } from "next-auth";
 
 type UserPopoverProps = {
   session?: Session | null;
   user?: IUser;
+  image?: string;
 };
 
 export default function UserProfilePopover({
   session,
   user,
+  image,
 }: UserPopoverProps) {
   const currentUser = user || session?.user;
   const fallbackInitials = currentUser?.name
@@ -35,7 +37,7 @@ export default function UserProfilePopover({
       <PopoverTrigger>
         <Avatar>
           <AvatarImage
-            src={currentUser?.image ?? undefined}
+            src={image ?? undefined}
             alt={currentUser?.name ?? "User"}
           />
           <AvatarFallback className="bg-primary text-primary-foreground">
@@ -44,11 +46,23 @@ export default function UserProfilePopover({
         </Avatar>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="flex flex-col gap-2 w-40">
+      <PopoverContent align="end" className="flex flex-col gap-2">
         <Button variant="outline" asChild>
-          <Link href="/profile" className="flex items-center gap-2">
+          <Link
+            href="/profile"
+            className="flex items-center justify-start gap-2"
+          >
             <UserCircle2 size={18} />
             <span>Profile</span>
+          </Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link
+            href="/dashboard"
+            className="flex items-center justify-start gap-2"
+          >
+            <LayoutDashboard size={18} />
+            <span>Dashboard</span>
           </Link>
         </Button>
         <LogoutButton />

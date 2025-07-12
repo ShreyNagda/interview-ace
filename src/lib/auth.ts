@@ -19,7 +19,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const user = await User.findOne({ email });
 
           if (!user) throw new Error("User not found");
-          console.log(user);
+          // console.log(user);
           const isValid = await bcrypt.compare(
             password as string,
             user.password
@@ -30,7 +30,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             id: user._id.toString(),
             name: user.name,
             email: user.email,
-            image: user.image || null,
+            // image: user.image || null,
           };
         } catch (err) {
           console.log(err);
@@ -54,6 +54,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.id = token.id as string;
       session.user.email = token.email as string;
       session.user.name = token.name;
+
       return session;
     },
   },

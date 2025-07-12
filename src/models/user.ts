@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
-import { model, models, Schema, Types } from "mongoose";
+import { model, models, Schema } from "mongoose";
 declare global {
   export type IJobLevel = "entry" | "junior" | "associate" | "senior" | "lead";
 
   export type IUser = {
-    _id?: string;
+    id?: string;
     email: string;
     password?: string;
     name: string;
@@ -17,7 +17,11 @@ declare global {
     resumeContext?: string;
     suggestions: string[]; // AI suggestions (e.g., prep tips)
     streak: number;
-    questionQueue: Types.ObjectId[]; // pre-generated question IDs
+    questionQueue: {
+      question: string;
+      category: string;
+      difficulty?: string;
+    }[];
     history: {
       id: string;
       question?: string;
@@ -28,6 +32,12 @@ declare global {
     onboardingComplete: boolean;
     createdAt?: Date;
     updatedAt?: Date;
+  };
+
+  export type IQuestion = {
+    question: string;
+    category: string;
+    difficulty?: string;
   };
 }
 
@@ -71,8 +81,9 @@ const UserSchema = new Schema<IUser>(
       default: 0,
     },
     questionQueue: {
-      type: [String],
-      default: [],
+      question: { type: String, required: true },
+      category: { type: String, required: true },
+      difficulty: { type: String },
     },
     history: [
       {
