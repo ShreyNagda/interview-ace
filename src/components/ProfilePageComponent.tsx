@@ -4,7 +4,6 @@ import { useState } from "react";
 import BasicForm from "@/components/Forms/BasicForm";
 import ProfileForm from "@/components/Forms/ProfileForm";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import Header from "./Header";
 
 export default function ProfilePageComponent({ user }: { user: IUser }) {
   const [basicData, setBasicData] = useState({
@@ -27,7 +26,6 @@ export default function ProfilePageComponent({ user }: { user: IUser }) {
 
   return (
     <>
-      <Header user={user} />
       <div className="max-w-xl mx-auto p-6">
         <Tabs defaultValue="basic" className="space-y-4">
           {/* Tab Triggers */}

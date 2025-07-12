@@ -11,6 +11,7 @@ import Link from "next/link";
 import { LayoutDashboard, UserCircle2 } from "lucide-react";
 import LogoutButton from "@/components/Buttons/LogoutButton";
 import { Session } from "next-auth";
+import { useState } from "react";
 
 type UserPopoverProps = {
   session?: Session | null;
@@ -23,6 +24,7 @@ export default function UserProfilePopover({
   user,
   image,
 }: UserPopoverProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const currentUser = user || session?.user;
   const fallbackInitials = currentUser?.name
     ? currentUser.name
@@ -33,7 +35,7 @@ export default function UserProfilePopover({
     : "US";
 
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger>
         <Avatar>
           <AvatarImage
@@ -47,7 +49,7 @@ export default function UserProfilePopover({
       </PopoverTrigger>
 
       <PopoverContent align="end" className="flex flex-col gap-2">
-        <Button variant="outline" asChild>
+        <Button variant="outline" asChild onClick={() => setIsOpen(false)}>
           <Link
             href="/profile"
             className="flex items-center justify-start gap-2"
@@ -56,7 +58,7 @@ export default function UserProfilePopover({
             <span>Profile</span>
           </Link>
         </Button>
-        <Button variant="outline" asChild>
+        <Button variant="outline" asChild onClick={() => setIsOpen(false)}>
           <Link
             href="/dashboard"
             className="flex items-center justify-start gap-2"

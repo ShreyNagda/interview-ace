@@ -27,17 +27,12 @@ declare global {
       question?: string;
       answer?: string;
       category?: string;
+      suggestion?: string;
       date: Date;
     }[];
     onboardingComplete: boolean;
     createdAt?: Date;
     updatedAt?: Date;
-  };
-
-  export type IQuestion = {
-    question: string;
-    category: string;
-    difficulty?: string;
   };
 }
 
@@ -80,11 +75,6 @@ const UserSchema = new Schema<IUser>(
       type: Number,
       default: 0,
     },
-    questionQueue: {
-      question: { type: String, required: true },
-      category: { type: String, required: true },
-      difficulty: { type: String },
-    },
     history: [
       {
         date: {
@@ -102,6 +92,9 @@ const UserSchema = new Schema<IUser>(
           type: String,
         },
         category: {
+          type: String,
+        },
+        suggestion: {
           type: String,
         },
       },
@@ -127,17 +120,6 @@ UserSchema.pre("save", async function (next) {
     next(new Error((err as Error).message));
   }
 });
-
-// Add virtual populate for answers
-UserSchema.virtual("answers", {
-  ref: "Answer",
-  localField: "history",
-  foreignField: "_id",
-});
-
-// Ensure virtuals are included in JSON output
-UserSchema.set("toJSON", { virtuals: true });
-UserSchema.set("toObject", { virtuals: true });
 
 const User = models.User || model<IUser>("User", UserSchema);
 export default User;

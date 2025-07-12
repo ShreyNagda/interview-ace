@@ -19,7 +19,6 @@ export default function Header({
   const pathname = usePathname();
 
   if (
-    // pathname.endsWith("/dashboard") ||
     pathname.includes("login") ||
     pathname.includes("signup") ||
     pathname.includes("error")
@@ -31,6 +30,8 @@ export default function Header({
       <div className="text-2xl md:text-3xl font-bold">
         {pathname.endsWith("/dashboard") ? (
           <UserGreeting name={session?.user?.name || ""} />
+        ) : pathname.endsWith("/answer") ? (
+          "Daily Challenge"
         ) : (
           "InterviewAce"
         )}
